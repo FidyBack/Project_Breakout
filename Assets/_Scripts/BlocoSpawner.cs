@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BlocoSpawner : MonoBehaviour
 {
-
 	public GameObject Bloco;
 	GameManager gm;
 
@@ -15,13 +14,14 @@ public class BlocoSpawner : MonoBehaviour
 	}
 
 	void Construir() {
-		if (gm.gameState == GameManager.GameState.GAME) {
+		if (gm.gameState == GameManager.GameState.GAME && gm.lastState != GameManager.GameState.PAUSE || gm.gameState == GameManager.GameState.MENU) {
 			foreach(Transform child in transform) {
 				GameObject.Destroy(child.gameObject);
 			}
-			for(int i=0; i<13; i++) {
-				for(int j=0; j<5; j++) {
-					Vector3 posicao = new Vector3(-9.3f + 1.55f * i, 4 - 0.55f * j);
+
+			for(int i=0; i<9; i++) {
+				for(int j=0; j<4; j++) {
+					Vector3 posicao = new Vector3(-7.0f + 1.75f * i, 4.5f - 0.75f * j);
 					Instantiate(Bloco, posicao, Quaternion.identity, transform);
 				}
 			}

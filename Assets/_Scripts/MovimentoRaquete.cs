@@ -15,6 +15,10 @@ public class MovimentoRaquete : MonoBehaviour {
 	}
 
 	void Update() {
+		if(gm.gameState == GameManager.GameState.PAUSE) {
+			rb.velocity = new Vector2 (0, 0);
+			return;
+		}
 		if(gm.gameState != GameManager.GameState.GAME) {
 			rb.position = new Vector2(0, -5.25f);
 			return;
