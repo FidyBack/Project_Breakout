@@ -11,7 +11,7 @@ public class MovimentoBola : MonoBehaviour
 {
 	public Rigidbody2D rb;
 	public Vector2 velocidadeBola;
-	public float multpVelocity = 8.0f;
+	public float multpVelocity = 7.5f;
 	public float anguloSaidaMaximo = 75f;
 
 	GameManager gm;
@@ -23,14 +23,14 @@ public class MovimentoBola : MonoBehaviour
 	}
 
 	public void StartMov(){
-		multpVelocity = 8.0f;
+		multpVelocity = 7.5f;
 		velocidadeBola.x = Random.Range(-0.4f, 0.4f);
 		velocidadeBola.y = 1.0f;
 		rb.velocity = velocidadeBola * multpVelocity;
 	}
 
 	public void StartLinearMov(Vector3 vel){
-		multpVelocity = 8.0f;
+		multpVelocity = 7.5f;
 		rb.velocity = vel;
 	}
 
@@ -38,25 +38,15 @@ public class MovimentoBola : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.Escape) && gm.gameState == GameManager.GameState.GAME) {
 			gm.changeState(GameManager.GameState.PAUSE);
 		}
+		VelocLimit(multpVelocity);
 
-		// Limita a velocidade máxima da bola
-		if (rb.velocity.x > multpVelocity){
-			rb.velocity = new Vector2(multpVelocity, rb.velocity.y);
-		}
-		else if (rb.velocity.x < -multpVelocity){
-			rb.velocity = new Vector2(-multpVelocity, rb.velocity.y);
-		}
-		if (rb.velocity.y > multpVelocity){
-			rb.velocity = new Vector2(rb.velocity.x, multpVelocity);
-		}
-		else if (rb.velocity.y < -multpVelocity){
-			rb.velocity = new Vector2(rb.velocity.x, -multpVelocity);
-		}
+		print(rb.velocity);
 	}
 
 	void OnCollisionEnter2D(Collision2D collision) {
 
 		Collider2D collider = collision.collider;
+		FindObjectOfType<AudioManager>().Play("BallBounce");
 
 		if (collider.gameObject.CompareTag("Player")) {
 			gm.pontos ++;
@@ -80,11 +70,7 @@ public class MovimentoBola : MonoBehaviour
 			rb.velocity = rotation * Vector2.up * rb.velocity.magnitude;
 		}
 
-		if (collider.gameObject.CompareTag("Brick")) {
-			gm.pontos += 5;
-		}
-
-		if (collider.name == "ParedeBaixo") {
+		if (collider.name == "Baixo") {
 			Reset();
 		}
 	}
@@ -99,5 +85,30 @@ public class MovimentoBola : MonoBehaviour
 
 		Vector3 playerPosition = Player.transform.position;
 		transform.position = playerPosition + new Vector3(0, 0.5f, 0);
+	}
+
+	private void VelocLimit(float multp) {
+		
+		// Limita a velocidade máxima da bola por cima
+		if (rb.velocity.x > multp){
+			rb.velocity = new Vector2(multp, rb.velocity.y);
+		}
+		else if (rb.velocity.x < -multp){
+			rb.velocity = new Vector2(-multp, rb.velocity.y);
+		}
+		if (rb.velocity.y > multp){
+			rb.velocity = new Vector2(rb.velocity.x, multp);
+		}
+		else if (rb.velocity.y < -multp){
+			rb.velocity = new Vector2(rb.velocity.x, -multp);
+		}
+
+		// Limita a velocidade máxima da bola por baixo
+		if (rb.velocity.x < multp-1 && rb.velocity.x > 0){
+			rb.velocity = new Vector2(multp-1, rb.velocity.y);
+		}
+		else if (rb.velocity.x > -multp+1 && rb.velocity.x < 0){
+			rb.velocity = new Vector2(-multp+1, rb.velocity.y);
+		}
 	}
 }

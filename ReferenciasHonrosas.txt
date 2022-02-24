@@ -1,0 +1,15 @@
+// Sprites
+https://www.ohsat.com/tutorial/flixel/hf-breakout/hf-breakout-3/brick.zip
+https://www.ohsat.com/tutorial/megapong/megapong-3/bgtile.zip
+https://www.ohsat.com/tutorial/megapong/megapong-5/ballsprite.zip
+https://www.ohsat.com/tutorial/megapong/megapong-6/paddle.zip
+
+// Replicação do sprite da parede
+https://www.youtube.com/watch?v=ug2v1nSCZSk&t=74s
+
+// Fonte
+https://www.dafont.com/pt/pixeland.font?text=Game
+https://www.dafont.com/pt/pixellari.font?text=Game
+
+// Música -> Jeremy Black - First Of 3
+https://www.youtube.com/watch?v=1lDAI_VaL30

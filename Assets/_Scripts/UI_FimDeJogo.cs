@@ -20,6 +20,7 @@ public class UI_FimDeJogo : MonoBehaviour {
 	}
 
 	public void Voltar() {
+		GameObject.Find("Raquete").GetComponent<Rigidbody2D>().position = new Vector2(0, -5.25f);;
 		gm.changeState(GameManager.GameState.GAME);
 	}
 }

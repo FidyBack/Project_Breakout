@@ -8,19 +8,15 @@ public class MovimentoRaquete : MonoBehaviour {
 
 	GameManager gm;
 	public Rigidbody2D rb;
-	public float velocidadeRaquete = 7.0f;
+	public float velocidadeRaquete = 9.5f;
 
 	void Start() {
 		gm = GameManager.GetInstance();
 	}
 
 	void Update() {
-		if(gm.gameState == GameManager.GameState.PAUSE) {
+		if(gm.gameState == GameManager.GameState.PAUSE || gm.gameState == GameManager.GameState.ENDGAME || gm.gameState == GameManager.GameState.MENU) {
 			rb.velocity = new Vector2 (0, 0);
-			return;
-		}
-		if(gm.gameState != GameManager.GameState.GAME) {
-			rb.position = new Vector2(0, -5.25f);
 			return;
 		}
 		
